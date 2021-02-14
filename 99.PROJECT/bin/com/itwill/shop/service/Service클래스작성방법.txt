@@ -1,0 +1,37 @@
+### 8 . Service(Manager) 클래스작성
+A.클래스로작성
+  	MemberService.java
+  	OrderService.java
+  	BoardService.java
+  	ProductService.java
+B. 요구사항 명세서(화면정의서)에 기술된 단위업무을 주석기술	
+C. Service클래스 메쏘드기술(인자 ,반환타입)
+D. Dao객체 생성-->
+E. Service클래스 메쏘드내용채움
+  ex>
+	public class MemberService{
+		private MemberDao memberDao;
+		public MemberService(){
+			memberDao=new MemberDao();
+		}
+		/*
+		번호,이름,나이,연락처를 입력하여 회원 추가한다.
+		*/
+		public void addMember(Member addMember){
+			/*
+			 << Dao사용 >>
+			*/
+		}
+		/*
+		이름을 입력하여 검색한다.
+		*/
+		public ArrayList<Member> findByName(String name){}
+		/*
+		번호을 입력하여 검색한다.
+		*/
+		public Member findByNo(int no){}
+		/*
+		전체회원을 출력한다.
+		회원 번호를 입력하여 회원을 삭제한다.
+		*/		
+	}

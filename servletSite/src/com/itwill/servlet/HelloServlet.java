@@ -12,17 +12,27 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class HelloServlet
  */
-@WebServlet("/HelloServlet")
+@WebServlet("/hello.do")
 public class HelloServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("-->"+ request.getRemoteAddr()+"?? ?????????");
-		response.setContentType("text/plain;charset=UTF-8");
+		
+		response.setContentType("text/html;charset=UTF-8");//응답의헤더
 		PrintWriter out = response.getWriter();
+		out.println("<!DOCTYPE html>");//응답의 바디>>
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<meta charset=\"UTF-8\">");
+		out.println("<title>Insert title here</title>");
+		out.println("</head>");
+		out.println("<body>");
 		int no=(int)(10* Math.random())+1;
 		for(int i=0;i<no;i++) {
-			out.println(request.getRemoteAddr()+"?? HelloServlet!!![java]"+(i+1));
-		}
-		System.out.println("-->"+ request.getRemoteAddr()+"?? ???? ????????[????]");
+			out.println("<h3>HelloServlet!!![web dynamic resource]"+(i+1)+"</h3>");
+			out.println("<hr>");
+		}	
+		out.println("</body>");
+		out.println("</html>");//응답의 바디>>
+		
 		
 	}
 }

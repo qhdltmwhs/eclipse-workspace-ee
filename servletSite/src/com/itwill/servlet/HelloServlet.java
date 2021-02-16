@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class HelloServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		System.out.println(Thread.currentThread().getName()+" 스레드 ");
 		response.setContentType("text/html;charset=UTF-8");//응답의헤더
 		PrintWriter out = response.getWriter();
 		out.println("<!DOCTYPE html>");//응답의 바디>>
@@ -27,7 +28,7 @@ public class HelloServlet extends HttpServlet {
 		out.println("<body>");
 		int no=(int)(10* Math.random())+1;
 		for(int i=0;i<no;i++) {
-			out.println("<h3>HelloServlet!!![web dynamic resource]"+(i+1)+"</h3>");
+			out.println("<h3>Hello[안녕] Servlet!!![web dynamic resource]"+(i+1)+"</h3>");
 			out.println("<hr>");
 		}	
 		out.println("</body>");

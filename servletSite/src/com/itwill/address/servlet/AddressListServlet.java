@@ -17,7 +17,7 @@ import com.itwill.address.AddressDao;
 /**
  * Servlet implementation class AddressListServlet
  */
-@WebServlet("/AddressListServlet")
+@WebServlet("/address_list.do")
 public class AddressListServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

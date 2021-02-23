@@ -31,7 +31,7 @@ function guestRemove() {
 function guestCreate() {
 	if (document.f.guest_name.value == "") {
 		alert("이름을 입력하십시요.");
-		f.guest_name.focus();
+		document.f.guest_name.focus();
 		return false;
 	}
 	if (document.f.guest_email.value == "") {
@@ -41,21 +41,22 @@ function guestCreate() {
 	}
 	if (document.f.guest_homepage.value == "") {
 		alert("홈페이지를 입력하십시요.");
-		f.guest_homepage.focus();
+		document.f.guest_homepage.focus();
 		return false;
 	}
 
 	if (document.f.guest_title.value == "") {
 		alert("제목을 입력하십시요.");
-		f.guest_title.focus();
+		document.f.guest_title.focus();
 		return false;
 	}
 	if (document.f.guest_content.value == "") {
 		alert("내용을 입력하십시요.");
-		f.guest_content.focus();
+		document.f.guest_content.focus();
 		return false;
 	}
 
-	f.action = "guest_write_action.jsp";
-	f.submit();
+	document.f.action = "guest_write_action.jsp";
+	document.f.method = 'POST'
+	document.f.submit();
 }

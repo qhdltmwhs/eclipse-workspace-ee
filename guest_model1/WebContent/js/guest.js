@@ -3,8 +3,11 @@
  */
 
 function guestCreateForm() {
-	document.f.action = 'guest_write.jsp';
+	/*
+	document.f.action = 'guest_write_form.jsp';
 	document.f.submit();
+	*/
+	window.location.href='guest_write_form.jsp';
 }
 function guestModifyAction() {
 	f.action = "guest_modify_action.jsp";
@@ -12,13 +15,12 @@ function guestModifyAction() {
 }
 
 function guestList() {
-	f.action = "guest_list.jsp";
-	f.submit();
+	window.location.href='guest_list.jsp';
 }
-
-function guestModify() {
-	f.action = "guest_modify.jsp";
-	f.submit();
+function guestModifyForm() {
+	document.f.action = "guest_modify_form.jsp";
+	document.f.method='POST'
+	document.f.submit();
 }
 function guestRemove() {
 	if (window.confirm("정말 삭제하시겠습니까?")) {

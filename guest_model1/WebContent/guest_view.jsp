@@ -96,10 +96,10 @@
 				</form> <br />
 				<table width=590 border=0 cellpadding=0 cellspacing=0>
 					<tr>
-						<td align=center><input type="button" value="수정"
-							onClick="guestModify();"> &nbsp; <input type="button"
-							value="삭제" onClick="guestRemove();"> &nbsp; <input
-							type="button" value="목록" onClick="guestList()"></td>
+						<td align=center>
+						<input type="button" value="수정" onClick="guestModifyForm();"> &nbsp;
+						<input type="button" value="삭제" onClick="guestRemove();"> &nbsp;
+						<input type="button" value="목록" onClick="guestList()"></td>
 					</tr>
 				</table>
 			</td>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function head_function(){
+		window.document.write("head_function()<br>");
+		return;
+	}
+	/*
+	global(window) 변수
+	*/
+	var name='global name';
+	window.msg='global msg';
+	
+	function hello1(){
+		/*
+		local 변수
+		*/
+		var name='local GUEST1';
+		var msg='local 안녕하세요';
+		window.document.write(name+" 님 "+msg+"[hello1()]<br>");
+	}
+	function hello2(msg){
+		var name='local GUEST2';
+		window.document.write(name+" 님 "+msg+"[hello2(msg)]<br>");
+	}
+	function hello3(name,msg){
+		window.document.write(name+" 님 "+msg+"[hello3(name,msg)]<br>");
+	}
+	function hello4(name,msg,count){
+		document.write('i='+i+"<br>");
+		for(var i=0;i<count;i++){
+			window.document.write(name+" 님 "+msg+"[hello4(name,msg,count)]("+i+")<br>");
+		}
+		document.write('i='+i+"-->?????<br>");
+	}
+	function add(a,b){
+		var r = a+b;
+		return r;
+	}
+	function sub(a,b){
+		return a-b;
+	}
+	/*
+	function alert(msg){
+		document.write('내가만든 경고함수:'+msg+"<br>");
+	}
+	*/
+	
+</script>
+
+
+</head>
+<body>
+<h1>자바스크립트함수</h1>
+<div>함수기반언어이다</div>
+<script type="text/javascript">
+	head_function();
+	window.head_function();
+	window.hello1();
+	hello2("너무 잘생겼어요!!!");
+	hello3("경호", "너무 멋지세요~~~");
+	hello4("경호", "너무 잘생겼세호~",3);
+	var result = add(12,23);
+	document.write('add(12,23): '+result+"<br>");
+	document.write("add('김','경호'): "+add('김','경호')+"<br>");
+	document.write("sub(23,78): "+sub(23,78)+"<br>");
+	window.alert('window.alert()');
+	//window.body_end_function();// window.body_end_function is not a function
+	//window.msg();//window.msg is not a function
+	
+	
+</script>
+<script type="text/javascript">
+	function body_end_function() {
+		document.write('body_end_function()<br>');
+	}
+	window.body_end_function();
+</script>
+</body>
+</html>

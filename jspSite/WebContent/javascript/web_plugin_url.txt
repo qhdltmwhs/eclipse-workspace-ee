@@ -1,0 +1,6 @@
+자바스크립트플러그인
+<<tern>>
+http://oss.opensagres.fr/tern.repository/1.2.0/
+<<wildwebdeveloper>>
+http://download.eclipse.org/wildwebdeveloper/releases/0.8.0/
+http://propedit.sourceforge.jp/eclipse/updates/

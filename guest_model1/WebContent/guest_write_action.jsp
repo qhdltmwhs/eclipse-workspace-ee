@@ -13,4 +13,5 @@
 		- 성공:guest_main.jsp 로 redirection
 		- 실패(예외):guest_error.jsp로 redirection
     */
-  %>    
+ 
+ %>    

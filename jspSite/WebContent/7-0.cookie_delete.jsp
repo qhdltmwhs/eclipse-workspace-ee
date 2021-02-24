@@ -4,14 +4,32 @@
 	/*
 	 1. Cookie얻기
 	*/
-	
-				/*
-				2. searchKeyword쿠키찾아서 setMaxAge(0)로설정
-				*/
-				
+	Cookie[] cookies = request.getCookies();
+	if(cookies!=null){
+		/*
+		2. searchKeyword쿠키찾아서 setMaxAge(0)로설정
+		*/
+		for(Cookie cookie:cookies){
+			if(cookie.getName().equals("searchKeyword")){
+				cookie.setMaxAge(0);
+				cookie.setValue("");
 				/*
 				3.응답객체에추가(클라이언트로전송)
 				*/
+				response.addCookie(cookie);
+			}
+			if(cookie.getName().equals("ip")){
+				cookie.setMaxAge(0);
+				cookie.setValue("");
+				/*
+				3.응답객체에추가(클라이언트로전송)
+				*/
+				response.addCookie(cookie);
+			}
+		}
+	}
+				
+				
 				
 
 %>    

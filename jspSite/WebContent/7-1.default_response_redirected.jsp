@@ -4,6 +4,7 @@
 	String msg1=request.getParameter("msg1");
 	String msg2=request.getParameter("msg2");
 	String url=request.getParameter("url");
+
 %>    
 <!DOCTYPE html>
 <html>

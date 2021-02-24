@@ -81,9 +81,9 @@
 							</form> <br />
 							<table width=590 border=0 cellpadding=0 cellspacing=0>
 								<tr>
-									<td align=center><input type="button" value="방명록쓰기"
-										onClick="guestCreate();"> &nbsp; <input type="button"
-										value="방명록목록" onClick="guestList()"></td>
+									<td align=center>
+									<input type="button" value="방명록쓰기" onclick="guestCreate();"> &nbsp; 
+									<input type="button" value="방명록목록" onclick="guestList()"></td>
 								</tr>
 							</table>
 						</td>

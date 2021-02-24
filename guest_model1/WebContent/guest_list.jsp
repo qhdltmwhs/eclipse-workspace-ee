@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	GuestService guestService = new GuestService();
+	GuestService guestService=new GuestService();
 	ArrayList<Guest> guestList = guestService.selectAll();
 %>	
 	
@@ -64,7 +64,7 @@
 									<tr>
 										<td width=50 align=center bgcolor="ffffff" height="20"><%=guest.getGuest_no()%></td>
 										<td width=300 bgcolor="ffffff" style="padding-left: 10"><a
-											href="guest_view.jsp?guest_no=25" class="user"><%=guest.getGuest_title()%></a></td>
+											href="guest_view.jsp?guest_no=<%=guest.getGuest_no()%>" class="user"><%=guest.getGuest_title()%></a></td>
 										<td width=120 align=center bgcolor="ffffff"><%=guest.getGuest_name() %></td>
 										<td width=120 align=center bgcolor="ffffff"><%=guest.getGuest_date().substring(0,10) %></td>
 									</tr>

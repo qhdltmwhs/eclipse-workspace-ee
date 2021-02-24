@@ -6,6 +6,11 @@
 	/*
 		1.Cookie객체생성
 	*/
+	Cookie cook1=new Cookie("id","xxxx");
+	Cookie cook2=new Cookie("name","KIM");
+	Cookie cook3=new Cookie("visitCount","45");
+	Cookie cook4=new Cookie("showPopup","true");
+	Cookie cook5=new Cookie("sessionId",(int)(Math.random()*123432423)+"");
 	/*
 	    2.쿠키객체설정(setMaxAge)
 	       - 쿠키의유효기간설정(파일로저장)
@@ -15,7 +20,11 @@
 	/*
 		3.응답객체에 쿠키추가
 	*/
-
+	response.addCookie(cook1);
+	response.addCookie(cook2);
+	response.addCookie(cook3);
+	response.addCookie(cook4);
+	response.addCookie(cook5);
 	
 %>    
 <!DOCTYPE html>

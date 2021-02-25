@@ -41,6 +41,15 @@
 <body>
 	<h1>HttpSession객체를 사용한 클라이언트별 요청횟수 카운트</h1><hr>
 	<h3><%=session.getId()%> 님 <%=count %> 번째 요청입니다.</h3>
+	<br/>
+	<ol>
+		<li>session객체생성여부:<%=session.isNew() %></li>
+		<li>session객체참조변수:<%=session %></li>
+		<li>session객체세션아이디:<%=session.getId() %></li>
+		<li>session객체생성시간:<%=session.getCreationTime() %></li>
+		<li>session객체유효시간:<%=session.getMaxInactiveInterval() %></li>
+		<li>session객체마지막바인딩시간:<%=session.getLastAccessedTime() %></li>
 	
+	</ol>
 </body>
 </html>

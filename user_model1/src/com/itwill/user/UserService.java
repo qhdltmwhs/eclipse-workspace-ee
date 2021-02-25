@@ -1,5 +1,7 @@
 package com.itwill.user;
 
+import java.util.ArrayList;
+
 import com.itwill.user.exception.ExistedUserException;
 import com.itwill.user.exception.PasswordMismatchException;
 import com.itwill.user.exception.UserNotFoundException;
@@ -38,5 +40,18 @@ public class UserService {
 			throw new PasswordMismatchException("패스워드가 일치하지 않습니다.");
 		}
 		return user;
+	}	
+	/*
+	 * 회원전체리스트	
+	 */
+	public ArrayList<User> findUserList() throws Exception{
+		return userDao.findUserList();
+	}
+	/*
+	 * 회원1명보기
+	 */
+	public User findUser(String userId)throws Exception{
+		User findUser = userDao.findUser(userId); 
+		return findUser;		
 	}
 } 

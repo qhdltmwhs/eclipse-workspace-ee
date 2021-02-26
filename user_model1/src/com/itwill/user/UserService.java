@@ -54,4 +54,16 @@ public class UserService {
 		User findUser = userDao.findUser(userId); 
 		return findUser;		
 	}
+	/*
+	 * 회원수정
+	 */
+	public int update(User user)throws Exception{
+		return userDao.update(user);
+	}
+	/*
+	 * 회원삭제
+	 */
+	public int remove(String userId)throws Exception{
+		return userDao.remove(userId);
+	}
 } 

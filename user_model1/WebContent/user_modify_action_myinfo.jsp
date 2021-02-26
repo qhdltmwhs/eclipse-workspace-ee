@@ -12,13 +12,16 @@
 	
 	try{
 		request.setCharacterEncoding("UTF-8");
-		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		UserService userService = new UserService();
-		int row = userService.update(new User(userId,password,name,email));
-		response.sendRedirect("user_view.jsp?userId="+userId);
+		
+		User updateUser = new User(sUserId,password,name,email);
+		int row = userService.update(updateUser);
+		User user = userService.findUser(sUserId);
+		session.setAttribute("sUser",user);
+		response.sendRedirect("user_view_myinfo.jsp");
 	
 	}catch(Exception e){
 		e.printStackTrace();

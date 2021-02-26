@@ -3,7 +3,7 @@
 <%@page import="jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="login_check.jspf" %>
+
 <%
 	if(request.getMethod().equalsIgnoreCase("GET")){
 		response.sendRedirect("user_main.jsp");
@@ -16,7 +16,7 @@
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		UserService userService = new UserService();
-		
+		String sUserId = (String)session.getAttribute("sUserId");
 		User updateUser = new User(sUserId,password,name,email);
 		int row = userService.update(updateUser);
 		User user = userService.findUser(sUserId);

@@ -2,14 +2,14 @@
 <%@page import="com.itwill.user.UserService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="login_check.jspf" %>
+
 <%
 	if(request.getMethod().equalsIgnoreCase("GET")){
 		response.sendRedirect("user_main.jsp");
 		return;
 	}
-	
 	UserService userService = new UserService();
+	String sUserId=(String)session.getAttribute("sUserId");
 	User user = userService.findUser(sUserId);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

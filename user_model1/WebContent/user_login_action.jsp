@@ -10,18 +10,34 @@
 		response.sendRedirect("user_login_form.jsp");
 		return;
 	}
+	String userId = null;
+	String password = null;
 	try{
-		String userId=request.getParameter("userId");
-		String password=request.getParameter("password");
+		userId=request.getParameter("userId");
+		password=request.getParameter("password");
 		UserService userService = new UserService();
 		User loginUser = userService.login(userId, password);
 		session.setAttribute("sUserId", userId);
 		session.setAttribute("sUser", loginUser);
 		response.sendRedirect("user_main.jsp");
 	}catch(UserNotFoundException e){
-		response.sendRedirect("user_login_form.jsp?msg1="+URLEncoder.encode(e.getMessage(), "UTF-8"));
+		//case1		
+		//response.sendRedirect("user_login_form.jsp?msg1="+URLEncoder.encode(e.getMessage(), "UTF-8"));
+		request.setAttribute("msg1", e.getMessage());
+		request.setAttribute("fuser", new User(userId,password,"",""));
+		RequestDispatcher rd = request.getRequestDispatcher("user_login_form.jsp");
+		rd.forward(request, response);
+		
+		
+		
 	}catch(PasswordMismatchException e){
-		response.sendRedirect("user_login_form.jsp?msg2="+URLEncoder.encode(e.getMessage(), "UTF-8"));
+		//response.sendRedirect("user_login_form.jsp?msg2="+URLEncoder.encode(e.getMessage(), "UTF-8"));
+		request.setAttribute("msg2", e.getMessage());
+		request.setAttribute("fuser", new User(userId,password,"",""));
+		RequestDispatcher rd = request.getRequestDispatcher("user_login_form.jsp");
+		rd.forward(request, response);
+	
+	
 	}catch(Exception e){
 		e.printStackTrace();
 		response.sendRedirect("user_error.jsp");

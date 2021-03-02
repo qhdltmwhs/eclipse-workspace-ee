@@ -1,0 +1,34 @@
+@charset "UTF-8";
+/*
+회원 페이지에 공통적으로 적용되는 css
+*/
+
+	/*
+	class selector
+		- 이름앞에 .을 기술한다.
+		- tag의 class속성값과 일치하는 tag적용
+	*/
+	.TXTFLD {
+		color: blue;
+		border-color: blue;
+		border-width: 1px;
+		border-style: dotted;
+		border-radius: 10px;
+	}
+	.TXTFLD1 {
+		color: red;
+		border-color: blue;
+		border-width: 1px;
+		border-style: dotted;
+		border-radius: 10px;
+	}
+	/*
+	id selector
+		- 이름앞에 #을기술
+		- tag id속성값과 일치하는 tag에적용
+	*/
+	#jointbl {
+		background-color: yellow;
+		border: 2px double blue;
+	}
+	

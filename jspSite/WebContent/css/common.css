@@ -1,0 +1,19 @@
+@charset "UTF-8";
+/*
+모든페이지에 공통적으로 적용되는 css
+*/
+
+	/*
+	tag selector
+		- 모든태크에 css속성적용
+	*/
+	body {
+		background-color: orange;
+		color: gold;	
+	}
+	h3 {
+		color: maroon;
+	}
+	form {
+		color: purple;
+	}

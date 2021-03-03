@@ -3,12 +3,12 @@
 	pageEncoding="UTF-8"%>
 <%
 	String p_noStr = request.getParameter("p_no");
-	if(p_noStr==null || p_noStr.equals("")){
+	if(p_noStr==null|| p_noStr.equals("")){
 		response.sendRedirect("product_list.jsp");
 		return;
 	}
-	ProductService productService = new ProductService();
-%>
+	ProductService productService;
+%>	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>

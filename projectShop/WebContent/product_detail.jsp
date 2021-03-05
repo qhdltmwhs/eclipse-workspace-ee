@@ -131,7 +131,7 @@
 
 							<table border="0" cellpadding="0" cellspacing="1">
 								<tr>
-									<td align=center><input type="button" value="구매"
+									<td align=center><input type="button" value="주문하기[주문품]"
 										onClick="jumun_create_form();"> &nbsp; <input
 										type="button" value="상품리스트" onClick="productList();"></td>
 								</tr>

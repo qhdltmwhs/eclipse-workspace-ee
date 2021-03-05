@@ -26,7 +26,7 @@
 	}
 	function view_cart_form_submit(){
 		document.view_cart_form.method='POST';
-		document.view_cart_form.action='shop_jumun_create_form.jsp';
+		document.view_cart_form.action='jumun_create_form.jsp';
 		document.view_cart_form.submit();
 	}
 </script>
@@ -136,7 +136,7 @@
 									<td align=center>&nbsp;&nbsp;
 									<a href="javascript:cart_delete();" class=m1>장바구니 비우기</a>&nbsp;&nbsp;
 									<a href="product_list.jsp" class=m1>계속 구경하기</a>&nbsp;&nbsp;
-									<a href="javascript:view_cart_form_submit();" class=m1>주문하기</a>
+									<a href="javascript:view_cart_form_submit();" class=m1>주문하기[주문폼]</a>
 
 									</td>
 								</tr>

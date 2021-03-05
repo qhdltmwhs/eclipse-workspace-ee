@@ -29,7 +29,7 @@ public class JumunDao {
 		dataSource = basicDataSource;
 	}
 	/*
-	 * 주문리스트(특정사용자)
+	 * 주문전체(특정사용자)
 	 */
 	public ArrayList<Jumun> list(String sUserId) throws Exception{
 		ArrayList<Jumun> jumunList=new ArrayList<Jumun>();
@@ -57,8 +57,46 @@ public class JumunDao {
 		}
 		return jumunList;
 	}
-	
-	
+	/*
+	 * 주문1개보기(주문상세리스트)
+	 */
+	public Jumun detail(int j_no)throws Exception{
+		String selectSql=
+"select * from jumun j join jumun_detail jd on j.j_no=jd.j_no  join  product p on jd.p_no=p.p_no where j.j_no = ?";
+		Jumun jumun=null;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		con=dataSource.getConnection();
+		pstmt=con.prepareStatement(selectSql);
+		pstmt.setInt(1,j_no);
+		rs=pstmt.executeQuery();
+		if(rs.next()) {
+			jumun=new Jumun(rs.getInt("j_no"), 
+					rs.getString("j_desc"),
+					rs.getDate("j_date"),
+					rs.getInt("j_price"),rs.getString("userid"));
+			do {
+				jumun.getJumunDetailList()
+					.add(new JumunDetail(
+								rs.getInt("jd_no"), 
+								rs.getInt("jd_qty"), 
+								rs.getInt("j_no"), 
+								new Product(rs.getInt("p_no"),
+											rs.getString("p_name"),
+											rs.getInt("p_price"),
+											rs.getString("p_image"),
+											rs.getString("p_desc"),
+											rs.getInt("p_click_count"))
+								)
+							);
+			}while(rs.next());
+		}
+		
+		
+		return jumun;
+	}
 	
 	
 }

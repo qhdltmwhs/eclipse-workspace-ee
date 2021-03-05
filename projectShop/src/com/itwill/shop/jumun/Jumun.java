@@ -19,7 +19,6 @@ USERID           VARCHAR2(100)
 	private int j_price;
 	private String userId;
 	private ArrayList<JumunDetail> jumunDetailList;
-	
 	public Jumun() {
 	}
 	public Jumun(int j_no, String j_desc, Date j_date, int j_price, String userId,
@@ -31,6 +30,15 @@ USERID           VARCHAR2(100)
 		this.j_price = j_price;
 		this.userId = userId;
 		this.jumunDetailList = jumunDetailList;
+	}
+	public Jumun(int j_no, String j_desc, Date j_date, int j_price, String userId) {
+		super();
+		this.j_no = j_no;
+		this.j_desc = j_desc;
+		this.j_date = j_date;
+		this.j_price = j_price;
+		this.userId = userId;
+		this.jumunDetailList = new ArrayList<JumunDetail>();
 	}
 	public int getJ_no() {
 		return j_no;

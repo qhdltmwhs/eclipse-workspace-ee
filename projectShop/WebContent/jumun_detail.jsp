@@ -1,3 +1,5 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="com.itwill.shop.jumun.JumunDetail"%>
 <%@page import="com.itwill.shop.jumun.Jumun"%>
 <%@page import="com.itwill.shop.jumun.JumunService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -63,8 +65,8 @@ form > table tr td{
 											주문상세조회</b></td>
 								</tr>
 							</table> <!--form-->
-							<form name="f" method="post" action="shop_jumun_delete_action.jsp">
-								<input type="hidden" name="j_no" value="10">
+							<form name="f" method="post" action="jumun_delete_action.jsp">
+								<input type="hidden" name="j_no" value="<%=jumun.getJ_no()%>">
 								
 							    <table align=center width=80% cellspacing=0
 									bordercolordark=#FFFFFF bordercolorlight=#4682b4>
@@ -82,9 +84,9 @@ form > table tr td{
 									
 									
 									<tr>
-										<td width=290 height=26 align=center class=t1>10</td>
-										<td width=112 height=26 align=center class=t1>2020-09-11</td>
-										<td width=166 height=26 align=center class=t1>guard1</td>
+										<td width=290 height=26 align=center class=t1><%=jumun.getJ_no()%></td>
+										<td width=112 height=26 align=center class=t1><%=jumun.getJ_date()%></td>
+										<td width=166 height=26 align=center class=t1><%=jumun.getUserId()%></td>
 										<td width=50 height=26 align=center class=t1>
 												<input type="submit" value="삭제">
 										</td>
@@ -107,37 +109,32 @@ form > table tr td{
 									</tr>
 									
 									<!-- cart item start -->
-									
+									<%
+									int tot_price=0;
+									for(JumunDetail jumunDetail:jumun.getJumunDetailList()) {
+										tot_price+=jumunDetail.getJd_qty()*jumunDetail.getProduct().getP_price();
+									%>
 									<tr>
-										<td width=290 height=26 align=center class=t1><a href='shop_product_detail.jsp?p_no=1'>비글</a></td>
-										<td width=112 height=26 align=center class=t1>1</td>
-										<td width=166 height=26 align=center class=t1>550000</td>
+										<td width=290 height=26 align=center class=t1>
+										<a href='product_detail.jsp?p_no=<%=jumunDetail.getProduct().getP_no()%>'>
+										<%=jumunDetail.getProduct().getP_name()%></a>
+										</td>
+										
+										<td width=112 height=26 align=center class=t1>
+										<%=jumunDetail.getJd_qty()%>
+										</td>
+										
+										<td width=166 height=26 align=center class=t1>
+										<%=new DecimalFormat("#,###").format(jumunDetail.getJd_qty()*jumunDetail.getProduct().getP_price())%>
+										</td>
 										<td width=50 height=26 align=center class=t1></td>
 									</tr>
-									
-									<tr>
-										<td width=290 height=26 align=center class=t1><a href='shop_product_detail.jsp?p_no=2'>달마시안</a></td>
-										<td width=112 height=26 align=center class=t1>3</td>
-										<td width=166 height=26 align=center class=t1>1500000</td>
-										<td width=50 height=26 align=center class=t1></td>
-									</tr>
-									
-									<tr>
-										<td width=290 height=26 align=center class=t1><a href='shop_product_detail.jsp?p_no=3'>퍼그</a></td>
-										<td width=112 height=26 align=center class=t1>1</td>
-										<td width=166 height=26 align=center class=t1>400000</td>
-										<td width=50 height=26 align=center class=t1></td>
-									</tr>
-									
+									<%}%>
 									<!-- cart item end -->
-									
-									
-									
-
 									<tr>
 										<td width=640 colspan=4 height=26 class=t1>
 											<p align=right>
-												<font color=#FF0000>총 주문 금액 : 2450000 원
+												<font color=#FF0000>총 주문 금액 : <%=new DecimalFormat("#,###.0").format(tot_price)%> 원
 												</font>
 											</p>
 										</td>
@@ -147,9 +144,9 @@ form > table tr td{
 							<table border="0" cellpadding="0" cellspacing="1" width="590">
 								<tr>
 									<td align=center> 
-										&nbsp;&nbsp;<a href=shop_jumun_list.jsp
+										&nbsp;&nbsp;<a href=jumun_list.jsp
 										class=m1>주문목록</a>
-										&nbsp;&nbsp;<a href=shop_product_list.jsp
+										&nbsp;&nbsp;<a href=product_list.jsp
 										class=m1>계속 쇼핑하기</a>
 
 									</td>

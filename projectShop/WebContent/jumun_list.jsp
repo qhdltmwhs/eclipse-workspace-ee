@@ -94,7 +94,7 @@
 							</form> <br />
 							<table border="0" cellpadding="0" cellspacing="1" width="590">
 								<tr>
-									<td align=center>&nbsp;&nbsp;<a href=shop_product_list.jsp
+									<td align=center>&nbsp;&nbsp;<a href=product_list.jsp
 										class=m1>계속 구경하기</a> 
 
 									</td>

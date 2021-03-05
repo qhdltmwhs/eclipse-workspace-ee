@@ -8,6 +8,11 @@
 		response.sendRedirect("product_list.jsp");
 		return;
 	}
+	boolean isLogin=false;
+	if(session.getAttribute("sUserId")!=null){
+		isLogin=true;
+	}
+	
 	ProductService productService=new ProductService();
 	Product product = productService.getProduct(Integer.parseInt(p_noStr));
 	if(product==null){
@@ -28,13 +33,14 @@
 <style type="text/css" media="screen">
 </style>
 <script type="text/javascript">
+	
 	function jumun_create_form() {
-		if (true) {
+		if (<%=!isLogin%>) {
 			alert('로그인 하세요');
 			location.href = 'user_login_form.jsp';
 		} else {
 			document.buyFrm.method = 'POST';
-			document.buyFrm.action = 'shop_jumun_create_form.jsp';
+			document.buyFrm.action = 'jumun_create_form.jsp';
 			document.buyFrm.submit();
 		}
 	}

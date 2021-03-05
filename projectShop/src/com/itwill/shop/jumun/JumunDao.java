@@ -60,17 +60,17 @@ public class JumunDao {
 	/*
 	 * 주문1개보기(주문상세리스트)
 	 */
-	public Jumun detail(int j_no)throws Exception{
+	public Jumun detail(String sUserId,int j_no)throws Exception{
 		String selectSql=
-"select * from jumun j join jumun_detail jd on j.j_no=jd.j_no  join  product p on jd.p_no=p.p_no where j.j_no = ?";
+"select * from jumun j join jumun_detail jd on j.j_no=jd.j_no  join  product p on jd.p_no=p.p_no where j.userid=? and j.j_no = ?";
 		Jumun jumun=null;
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		
 		con=dataSource.getConnection();
 		pstmt=con.prepareStatement(selectSql);
-		pstmt.setInt(1,j_no);
+		pstmt.setString(1,sUserId);
+		pstmt.setInt(2,j_no);
 		rs=pstmt.executeQuery();
 		if(rs.next()) {
 			jumun=new Jumun(rs.getInt("j_no"), 

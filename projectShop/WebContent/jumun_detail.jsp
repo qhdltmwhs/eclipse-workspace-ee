@@ -1,12 +1,18 @@
-
-
-
-
-
-
-
-          
-    
+<%@page import="com.itwill.shop.jumun.Jumun"%>
+<%@page import="com.itwill.shop.jumun.JumunService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="login_check.jspf" %>
+<%
+	String j_noStr=request.getParameter("j_no");
+	if(j_noStr==null|| j_noStr.equals("")){
+		response.sendRedirect("jumun_list.jsp");
+		return;
+	}
+	JumunService jumunService=new JumunService();
+	Jumun jumun = jumunService.detail(sUserId,Integer.parseInt(j_noStr));
+	
+%>     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -30,40 +36,14 @@ form > table tr td{
 		<!-- header start -->
 		<div id="header">
 			<!-- include_common_top.jsp start-->
-			
-<h1>
-	<a href="">WEB SAMPLE SITE</a>
-</h1>
-
+		    <jsp:include page="include_common_top.jsp"/>
 			<!-- include_common_top.jsp end-->
 		</div>
 		<!-- header end -->
 		<!-- navigation start-->
 		<div id="navigation">
 			<!-- include_common_left.jsp start-->
-			
-<script type="text/javascript">
-	function login_message(){
-		alert('로그인하세요');
-		location.href='user_login_form.jsp';
-	}
-</script>    
-<p>
-	<strong>메 뉴</strong>
-</p>
-<ul>
-	
-	
-		<li><a href="user_view.jsp">guard1님</a>&nbsp;<a href="user_logout_action.jsp">로그아웃</a></li>
-		<li><a href="shop_jumun_list.jsp">주문목록</a></li>
-	
-	<li><a href="shop_product_list.jsp">쇼핑몰</a></li>
-	
-	
-		<li><a href="shop_view_cart.jsp">장바구니</a></li>
-		
-</ul>
-
+			<jsp:include page="include_common_left.jsp"/>
 			<!-- include_common_left.jsp end-->
 		</div>
 		<!-- navigation end-->
@@ -184,10 +164,7 @@ form > table tr td{
 		<!--wrapper end-->
 		<div id="footer">
 			<!-- include_common_bottom.jsp start-->
-			
-	<p align="center">Copyright (&copy;) By Java Class 5. All
-		rights reserved.</p>
-
+			<jsp:include page="include_common_bottom.jsp"/>
 			<!-- include_common_bottom.jsp end-->
 		</div>
 	</div>

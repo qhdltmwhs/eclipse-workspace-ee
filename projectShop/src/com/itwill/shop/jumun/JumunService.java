@@ -13,5 +13,11 @@ public class JumunService {
 	public ArrayList<Jumun> list(String sUserId) throws Exception{
 		return jumunDao.list(sUserId);
 	}
+	/*
+	 * 주문상세보기
+	 */
+	public Jumun detail(String sUserId,int j_no)throws Exception{
+		return jumunDao.detail(sUserId,j_no);
+	}
 	
 }

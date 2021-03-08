@@ -124,14 +124,14 @@
 							</form>
 							-->
 							<form name="buyFrm">
-								<input type="hidden" name="p_no" value="1"> <input
+								<input type="hidden" name="p_no" value="<%=product.getP_no()%>"> <input
 									type="hidden" name="p_qty" value="1"> <input
 									type="hidden" name="buyType" value="direct">
 							</form>
 
 							<table border="0" cellpadding="0" cellspacing="1">
 								<tr>
-									<td align=center><input type="button" value="주문하기[주문품]"
+									<td align=center><input type="button" value="주문하기[주문폼]"
 										onClick="jumun_create_form();"> &nbsp; <input
 										type="button" value="상품리스트" onClick="productList();"></td>
 								</tr>

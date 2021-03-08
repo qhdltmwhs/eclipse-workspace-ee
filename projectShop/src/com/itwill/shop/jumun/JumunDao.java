@@ -29,6 +29,86 @@ public class JumunDao {
 		dataSource = basicDataSource;
 	}
 	/*
+	 * 주문삭제
+	 */
+	public int delete(int j_no)throws Exception{
+		/*
+		 delete from jumun_detail where j_no=1;
+		 delete from jumun where j_no=1;
+		 */
+		String deleteSql1="delete from jumun_detail where j_no=?";
+		String deleteSql2="delete from jumun where j_no=?";
+		Connection con=null;
+		PreparedStatement pstmt1=null;
+		PreparedStatement pstmt2=null;
+		
+		try {
+			con=dataSource.getConnection();
+			con.setAutoCommit(false);
+			pstmt1=con.prepareStatement(deleteSql1);
+			pstmt2=con.prepareStatement(deleteSql2);
+			pstmt1.setInt(1, j_no);
+			pstmt2.setInt(1, j_no);
+			int rowCount1 = pstmt1.executeUpdate();
+			int rowCount2 = pstmt2.executeUpdate();
+			con.commit();
+		}catch (Exception e) {
+			con.rollback();
+			e.printStackTrace();
+			throw e;
+		}finally {
+			if(con!=null)con.close();
+			
+		}
+		return 0;
+		
+	}
+	
+	
+	/*
+	 * 주문생성
+	 */
+	public int create(Jumun jumun) throws Exception{
+		/*
+		insert into jumun(j_no,j_desc,j_date,j_price,userid) values (jumun_j_no_SEQ.nextval,'비글외1종',sysdate-2,1050000,'guard1');
+		insert into jumun_detail(jd_no,jd_qty,j_no,p_no) values(jumun_detail_jd_no_SEQ.nextval,1,jumun_j_no_SEQ.currval,1);
+		*/
+		String insertJumun=
+		"insert into jumun(j_no,j_desc,j_date,j_price,userid) values (jumun_j_no_SEQ.nextval,?,sysdate,?,?)";
+		String insertJumunDetail=
+		"insert into jumun_detail(jd_no,jd_qty,j_no,p_no) values(jumun_detail_jd_no_SEQ.nextval,?,jumun_j_no_SEQ.currval,?)";
+		Connection con=null;
+		PreparedStatement pstmt1=null;
+		PreparedStatement pstmt2=null;
+		try {
+			con=dataSource.getConnection();
+			
+			con.setAutoCommit(false);
+			pstmt1=con.prepareStatement(insertJumun);
+			pstmt1.setString(1, jumun.getJ_desc());
+			pstmt1.setInt(2, jumun.getJ_price());
+			pstmt1.setString(3, jumun.getUserId());
+			pstmt1.executeUpdate();
+			
+			pstmt2=con.prepareStatement(insertJumunDetail);
+			for(JumunDetail jumunDetail:jumun.getJumunDetailList()) {
+				pstmt2.setInt(1, jumunDetail.getJd_qty());
+				pstmt2.setInt(2, jumunDetail.getProduct().getP_no());
+				pstmt2.executeUpdate();
+			}
+			con.commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+			con.rollback();
+			throw e;
+		}finally {
+			if(con!=null)con.close();
+		}
+		return 0;
+	}
+	
+	
+	/*
 	 * 주문전체(특정사용자)
 	 */
 	public ArrayList<Jumun> list(String sUserId) throws Exception{

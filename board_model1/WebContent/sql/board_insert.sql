@@ -11,7 +11,7 @@ CREATE TABLE board
     depth number default (0)
  );
 /*
- * groupno : 최상위글과 그글의 답글들을 하나의 구룹으로 묶기위한컬럼
+ * groupno : 최상위글과 그글의 답글모두들을 하나의 구룹으로 묶기위한컬럼
  * step    : 같은그룹내에서의 순서를 가지고있는 컬럼
  * depth   : 답글의 깊이를 가지고있는 컬럼
  */
@@ -36,11 +36,12 @@ INSERT INTO Board ( boardno,title,writer,content,groupno,step)
 VALUES (board_sequence.nextval, ?, ?, ?,board_sequence.currval, 1);
 commit;
 --답글쓰기
---원글의 데이타를 기반으로 작업한다.
-/*
+--
+/*원글의 데이타를 기반으로 작업한다.
  * 1. 같은그룹번호들중에서 원글의 step보다큰 step을가진 게시물들의 step을 1씩 증가시킨다.
  */
-UPDATE board SET step = step + 1 WHERE step > 1 AND groupno = 582;
+ --1번step
+UPDATE board SET step = step + 1 WHERE step > 1 AND groupno = 563;
 commit;
 /*
  * 2. 
@@ -53,26 +54,38 @@ commit;
 INSERT INTO board(boardno,title,writer,content, groupno, step, depth) 
                VALUES
             (board_sequence.nextval,
-                '582번답글',
+                '563번답글2',
                 'guard',
-                '582번답글컨텐트',
-                582,
+                '563번답글컨텐트2',
+                563,
                 2,
-                2
+                1
               );
-commit;                  
+commit;  
+
+--2번step
+UPDATE board SET step = step + 1 WHERE step > 2 AND groupno = 563;
+commit;
+/*
+ * 2. 
+ * 	  boardno:시퀀스증가
+ *    groupno:원글의 groupno
+ *    step   :원글의 step+1
+ *    depth  :원글의 depth+1
+ *    
+ */
 INSERT INTO board(boardno,title,writer,content, groupno, step, depth) 
                VALUES
             (board_sequence.nextval,
-                '576번답글답글',
+                '563번답글답글',
                 'guard',
-                '576번답글답글컨텐트',
-                576,
-                1,
-                0
+                '563번답글답글컨텐트',
+                563,
+                3,
+                2
               );
-             
-commit;
+commit;  
+
 
 select * from board order by groupno desc;
 

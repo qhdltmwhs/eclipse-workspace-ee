@@ -17,7 +17,7 @@ board.setWriter(request.getParameter("writer"));
 board.setContent(request.getParameter("content"));
 
 //2. 데이터베이스에 변경된 내용 적용
-new BoardService().update(board);
+BoardService.getInstance().update(board);
 String pageno = "1";
 if (request.getParameter("pageno") != null) {
 	pageno = request.getParameter("pageno");

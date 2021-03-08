@@ -38,11 +38,11 @@ public class PageCalculator{
 		// 2.한 화면(그룹) 에서 보여지는 그룹넘버,
 		selectPageNo = selectPage;		
 		groupNo = (selectPageNo-1)/pageCountPerPage;
-		// 만일 pageCountPerPage 를 5 으로 설정하였을 경우
+		// 만일 pageCountPerPage 를 10 으로 설정하였을 경우
 		/*  
-		      1  2  3  4   5 ▶ --> 0
-	 	  ◀  6  7  8  9  10 ▶ --> 1
-		  ◀ 11 12 13 14  15 ▶ --> 2
+		      1  2  3  4   5   6   7   8  9  10  ▶ --> 0
+	 	  ◀ 11 12 13 14  15  16  17  18 19  20  ▶ --> 1
+		  ◀ 21 22 23 24  25  26  27  28 29  30  ▶ --> 2
 		 */
 		// 3.한 화면(그룹) 에서 시작페이지와 끝페이지 
 		startPageNo = groupNo*pageCountPerPage + 1;

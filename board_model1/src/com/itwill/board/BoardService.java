@@ -4,17 +4,24 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.itwill.util.PageInputDto;
+import com.itwill.util.PageMaker;
+import com.itwill.util.BoardListPageMakerDto;
 import com.itwill.util.BoardListPageDto;
 import com.itwill.util.PageCalculator;
 
 public class BoardService {
-	
+	private static BoardService _instance;
 	
 	private BoardDao boardDao;
-	public  BoardService() throws Exception{
+	private  BoardService() throws Exception{
 		boardDao=new BoardDao();
 	}
-	
+	public static BoardService getInstance() throws Exception{
+		if(_instance==null) {
+			_instance=new BoardService();
+		}
+		return _instance;
+	}
 	/*
 	 * 게시물삭제
 	 */
@@ -31,11 +38,16 @@ public class BoardService {
 		}
 		//return getBoardDao().remove(boardno);
 	}
-	
+	/*
+	 * 게시물생성
+	 */
+	public int create(Board board)throws Exception{
+		return  boardDao.create(board);
+	}
 	/*
 	 * 답글쓰기
 	 */
-	public int createReplay(Board board){
+	public int createReplay(Board board) throws Exception{
 		return boardDao.createReply(board);
 	}
 	/*
@@ -45,18 +57,36 @@ public class BoardService {
 		Board board=boardDao.findBoard(boardNo);
 		return board;
 	}
-	public void updateHitCount(int boardNo){
+	public void updateHitCount(int boardNo) throws Exception{
 		boardDao.increaseReadCount(boardNo);
 	}
 	/*
 	 * 게시물리스트
 	 */
-	public BoardListPageDto findBoardList(PageInputDto pageConfig){
+	public BoardListPageMakerDto findBoardList(int currentPage) throws Exception{
 		//1.전체글의 갯수
 		int totalRecordCount = boardDao.getBoardCount();
-		//ListResultBean 클래스-->결과데이타 DTO,VO(Board ArrayList + Paging)
+		//2.paging계산(PageMaker 유틸클래스)
+		PageMaker pageMaker=new PageMaker(totalRecordCount,currentPage);
+		//3.게시물데이타 얻기
+		List<Board> boardList=
+				boardDao.findBoardList(pageMaker.getPageBegin(),
+											pageMaker.getPageEnd());
 		
+		BoardListPageMakerDto pageMakerBoardList=new BoardListPageMakerDto();
+		pageMakerBoardList.totRecordCount=totalRecordCount;
+		pageMakerBoardList.itemList=boardList;
+		pageMakerBoardList.pageMaker=pageMaker;
+		return pageMakerBoardList;
+	}
+	/*
+	 * 게시물리스트
+	 */
+	public BoardListPageDto findBoardList(PageInputDto pageConfig) throws Exception{
+		//1.전체글의 갯수
+		int totalRecordCount = boardDao.getBoardCount();
 		//2.paging계산(PageCounter 유틸클래스)
+		//BoardListPageDto 클래스-->결과데이타 DTO,VO(Board ArrayList + Paging)
 		BoardListPageDto boardListPageDto=PageCalculator.getPagingInfo(
 								Integer.parseInt(pageConfig.getSelectPage()),
 								pageConfig.getRowCountPerPage(),
@@ -66,21 +96,14 @@ public class BoardService {
 		//3.게시물데이타 얻기
 		List<Board> boardList=
 				boardDao.findBoardList(boardListPageDto.getStartRowNum(),
-											boardListPageDto.getEndRowNum());
+						boardListPageDto.getEndRowNum());
 		boardListPageDto.setList(boardList);
-		
 		return boardListPageDto;
-	}
-	/*
-	 * 게시물생성
-	 */
-	public int create(Board board) throws Exception{
-		return  boardDao.create(board);
 	}
 	/*
 	 * 게시물수정
 	 */
-	public int update(Board board) throws SQLException {
+	public int update(Board board) throws Exception {
 		return boardDao.update(board);
 	}
 	

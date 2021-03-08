@@ -17,13 +17,13 @@
 		response.sendRedirect("board_list.jsp?pageno="+pageno);
 		return;
 	}
-	Board board=new BoardService().findBoard(boardno);
+	Board board=BoardService.getInstance().findBoard(boardno);
 	if(board==null){
 		response.sendRedirect("board_list.jsp?pageno="+pageno);
 		return;
 	}
 	//읽은회수증가
-	new BoardService().updateHitCount(boardno);
+	BoardService.getInstance().updateHitCount(boardno);
 	
 %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -147,11 +147,11 @@
 							<table width=590 border=0 cellpadding=0 cellspacing=0>
 								<tr>
 									<td align=center><input type="button" value="글쓰기"
-										onClick="boardCreate()"> &nbsp; <input type="button"
-										value="답글쓰기" onClick="boardReplyCreate()"> &nbsp; <input
-										type="button" value="수정" onClick="boardUpdate()">
-										&nbsp; <input type="button" value="삭제" onClick="boardRemove()">
-										&nbsp; <input type="button" value="리스트" onClick="boardList()"></td>
+										onClick="boardCreate()"> &nbsp; 
+										<input type="button" value="답글쓰기" onClick="boardReplyCreate()"> &nbsp; 
+										<input type="button" value="수정" onClick="boardUpdate()"> &nbsp; 
+										<input type="button" value="삭제" onClick="boardRemove()"> &nbsp; 
+										<input type="button" value="리스트" onClick="boardList()"></td>
 								</tr>
 							</table></td>
 					</tr>

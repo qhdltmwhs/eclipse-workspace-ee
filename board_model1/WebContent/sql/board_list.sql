@@ -2,19 +2,21 @@
 select boardno,title,groupno,step,depth 
 from board order by groupno desc;
 
+select rownum,board.* from board;
+
 select boardno,title,groupno,step,depth 
 from board order by groupno desc,step asc;
 /*
 XXXXX
 */
 select boardno,title,groupno,step,depth 
-from board where boardno >= 21 and boardno<=30
+from board where boardno >= 1 and boardno<=10
 order by groupno desc,step asc;
 
 /*
 <<ROWNUM  pseudo 칼럼 >>
 
-- ROWNUM은 쿼리 내에서 사용 가능한 (실제 컬럼이 아닌) 가상 컬럼(pseudocolumn)입니다.
+- ROWNUM은 쿼리 내에서 사용 가능한 (실제 컬럼이 아닌) 가상 컬럼(pseudo column)입니다.
 - ROWNUM에는 숫자 1, 2, 3, 4, ... N의 값이 할당됩니다.
    여기서 N 은 ROWNUM과 함께 사용하는 로우의 수를 의미합니다.
 - ROWNUM의 값은 로우에 영구적으로 할당되지 않습니다.
@@ -39,8 +41,8 @@ order by groupno desc,step asc;
 */
 -----------rownum--------------
 --XXXX
-select rownum,emp.* from emp where rownum >1;
-select rownum,emp.* from emp where rownum >=1;
+select rownum,emp.* from emp where rownum > 1;
+select rownum,emp.* from emp where rownum >=1 and rownum<=10;
 
 SELECT rownum,board.* FROM board;
 

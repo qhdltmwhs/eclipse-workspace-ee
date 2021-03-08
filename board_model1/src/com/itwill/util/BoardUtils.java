@@ -2,6 +2,8 @@
 
 import java.io.UnsupportedEncodingException;
 
+import com.itwill.board.Board;
+
 public class BoardUtils {
 	/*
 	 * \r\n 을 html의 <br>로 convert한다
@@ -42,5 +44,26 @@ public class BoardUtils {
 		//character의 코드를 바꾸어준다.
 		return new String(str.getBytes("KSC5601"), "8859_1");
 	}
-
+	public String getTitleString(Board board) {
+		StringBuilder title = new StringBuilder(128);
+		String t = board.getTitle();
+		if (t.length() > 15) {
+			//t = t.substring(0,15);
+			//t = t+"...";
+			t = String.format("%s...", t.substring(0, 15));
+		}
+		//답글공백삽입
+		
+		for (int i = 0; i < board.getDepth(); i++) {
+			title.append("&nbsp;&nbsp;");
+		}
+		
+		if (board.getDepth() > 0) {
+			title.append("<img border='0' src='image/re.gif'/>");
+		}
+		
+		title.append(t.replace(" ", "&nbsp;"));
+		
+		return title.toString();
+}
 }

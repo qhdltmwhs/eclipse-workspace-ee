@@ -9,7 +9,7 @@
 		return;
 	}
 	int boardno = Integer.parseInt(request.getParameter("boardno"));
-	Board board=new BoardService().findBoard(boardno);
+	Board board=BoardService.getInstance().findBoard(boardno);
 	if(board==null){
 		response.sendRedirect("board_list.jsp");
 		return;
@@ -104,7 +104,7 @@
 									<tr>
 										<td width=100 align=center bgcolor="E6ECDE" height="22">작성자</td>
 										<td width=490 bgcolor="ffffff" style="padding-left: 10px" align="left">
-											<input value="<%=board.getWriter()%>"type="text" style="width: 150"
+											<input value="<%=board.getWriter()%>" type="text" style="width: 150"
 											name="writer">
 										</td>
 									</tr>

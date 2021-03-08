@@ -1,8 +1,6 @@
 DROP TABLE board;
 DROP SEQUENCE board_sequence;
-
 CREATE SEQUENCE board_sequence;
-
 CREATE TABLE board
  (
     boardno number  primary key,        -- 게시판번호

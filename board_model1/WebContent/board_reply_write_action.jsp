@@ -16,7 +16,7 @@
 	board.setTitle(request.getParameter("title"));
 	board.setWriter(request.getParameter("writer"));
 	board.setContent(request.getParameter("content"));
-	BoardService.getInstance().createReplay(board);
+	new BoardService().createReplay(board);
 	
 	String pageno = "1";
 	if(request.getParameter("pageno")!=null){

@@ -19,7 +19,7 @@ public class BatchUpdateBoardMain
 					+ " VALUES ("
 					+ "board_sequence.nextval,"
 					+ "'게시판타이틀'||board_sequence.currval ,"
-					+ "'김경호'||board_sequence.currval,"
+					+ "'박신혜'||board_sequence.currval,"
 					+ "'content'||board_sequence.currval,"
 					+ "board_sequence.currval,"
 					+ "1)"

@@ -18,7 +18,7 @@ if(boardno==null){
 	msg="삭제실패";
 }else{
 	try{
-		BoardService.getInstance().remove(boardno);
+		new BoardService().remove(boardno);
 		result=true;
 		msg="삭제성공";
 	}catch(BoardException e){

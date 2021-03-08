@@ -5,32 +5,42 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Properties;
 
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp2.BasicDataSource;
 
 /*
  * 자료실 게시판에서 데이터베이스의 접근을 전담하는 클래스. 
  * BOARD 테이블과의 접근을 담당한다.
  */
-public class BoardDao extends RdbmsDao {
-	
-	public BoardDao() {
-		System.out.println("BoardDao생성자");
+public class BoardDao {
+	private DataSource dataSource;
+
+	public BoardDao() throws Exception{
+
+		Properties properties = new Properties();
+		properties.load(this.getClass().getResourceAsStream("/db.properties"));
+		/*** Apache DataSource ***/
+		BasicDataSource basicDataSource = new BasicDataSource();
+		basicDataSource.setDriverClassName(properties.getProperty("driverClass"));
+		basicDataSource.setUrl(properties.getProperty("url"));
+		basicDataSource.setUsername(properties.getProperty("user"));
+		basicDataSource.setPassword(properties.getProperty("password"));
+		dataSource = basicDataSource;
 	}
 
-	
-	
 	/**
 	 * 새로운 게시물을 추가하는 메써드.
 	 */
-	public int create(Board board) {
+	public int create(Board board) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
-			conn = getConnection();
-			String sql = "INSERT INTO Board "
-					+ "(boardno, title, writer, content, groupno, step)"
-					+ "VALUES (board_sequence.nextval, ?, ?, ?, "
-					+ "board_sequence.currval, 1)";
+			conn = dataSource.getConnection();
+			String sql = "INSERT INTO Board " + "(boardno, title, writer, content, groupno, step)"
+					+ "VALUES (board_sequence.nextval, ?, ?, ?, " + "board_sequence.currval, 1)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getWriter());
@@ -43,10 +53,11 @@ public class BoardDao extends RdbmsDao {
 			ex.printStackTrace();
 		} finally {
 			// 6. 연결닫기
-			releaseConnection(conn);
+			conn.close();
 		}
 		return 0;
 	}
+
 	/**
 	 * 답글 게시물을 추가하는 메써드
 	 */
@@ -59,9 +70,8 @@ public class BoardDao extends RdbmsDao {
 			Board temp = findBoard(board.getBoardNo());
 
 			// 영향을 받는 기존 글들의 논리적인 순서 번호 변경
-			conn = getConnection();
-			String sql = "UPDATE board " + "SET step = step + 1 "
-					+ "WHERE step > ? AND groupno = ?";
+			conn = dataSource.getConnection();
+			String sql = "UPDATE board " + "SET step = step + 1 " + "WHERE step > ? AND groupno = ?";
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, temp.getStep());// step 번호
 			pstmt.setInt(2, temp.getGroupNo());// group 번호
@@ -69,8 +79,7 @@ public class BoardDao extends RdbmsDao {
 			pstmt.close();
 
 			// 댓글 삽입
-			sql = "INSERT INTO board " + "(boardno, title, writer, content, "
-					+ "groupno, step, depth) "
+			sql = "INSERT INTO board " + "(boardno, title, writer, content, " + "groupno, step, depth) "
 					+ "VALUES (board_sequence.nextVal, ?, ?, ?," + "?, ?, ?)";
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, board.getTitle());// 제목
@@ -78,7 +87,7 @@ public class BoardDao extends RdbmsDao {
 			pstmt.setString(3, board.getContent());// 내용
 			pstmt.setInt(4, temp.getGroupNo());// step
 			pstmt.setInt(5, temp.getStep() + 1);// step
-			pstmt.setInt(6, temp.getDepth()+1);// depth
+			pstmt.setInt(6, temp.getDepth() + 1);// depth
 
 			count = pstmt.executeUpdate();
 		} catch (Exception ex) {
@@ -99,8 +108,9 @@ public class BoardDao extends RdbmsDao {
 		return count;
 
 	}
+
 	/**
-	 * 게시물 리스트를 반환(게시물시작번호,게시물끝번호) 
+	 * 게시물 리스트를 반환(게시물시작번호,게시물끝번호)
 	 */
 	public ArrayList<Board> findBoardList(int start, int last) {
 		System.out.println("" + start + " ~ " + last);
@@ -111,10 +121,10 @@ public class BoardDao extends RdbmsDao {
 		ArrayList<Board> boards = new ArrayList<Board>();
 
 		try {
-			conn = getConnection();
-			//String sql="select boardno,title,groupno,step,depth \r\n" + 
-			//		"from board order by groupno desc";
-			
+			conn = dataSource.getConnection();
+			// String sql="select boardno,title,groupno,step,depth \r\n" +
+			// "from board order by groupno desc";
+
 			StringBuffer sql = new StringBuffer(500);
 			sql.append("SELECT * ");
 			sql.append("FROM ");
@@ -137,7 +147,7 @@ public class BoardDao extends RdbmsDao {
 			sql.append(") ");
 
 			sql.append("WHERE idx >= ? AND idx <= ? ");
-			
+
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, last);
@@ -167,13 +177,14 @@ public class BoardDao extends RdbmsDao {
 				}
 			if (conn != null)
 				try {
-					releaseConnection(conn);
+					conn.close();
 				} catch (Exception ex) {
 				}
 		}
-		//System.out.println(boards);
+		// System.out.println(boards);
 		return boards;
 	}
+
 	/*
 	 * 
 	 * 
@@ -186,10 +197,10 @@ public class BoardDao extends RdbmsDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Boolean  isExist = false;
-		int cnt=0;
+		Boolean isExist = false;
+		int cnt = 0;
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			StringBuffer sql = new StringBuffer(300);
 			sql.append("SELECT ");
 			sql.append("count(*) cnt ");
@@ -198,18 +209,18 @@ public class BoardDao extends RdbmsDao {
 			sql.append("AND depth >= ? ");
 			sql.append("AND step >= ? ");
 			sql.append("ORDER BY step,depth ASC");
-			
+
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, board.getGroupNo());
 			pstmt.setInt(2, board.getDepth());
 			pstmt.setInt(3, board.getStep());
-			
+
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				cnt=rs.getInt("cnt");
+				cnt = rs.getInt("cnt");
 			}
-			if(cnt>1){
-				isExist=true;
+			if (cnt > 1) {
+				isExist = true;
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -226,26 +237,26 @@ public class BoardDao extends RdbmsDao {
 			}
 			try {
 				if (conn != null)
-					releaseConnection(conn);
+					conn.close();
 			} catch (Exception ex) {
 			}
 		}
 		return isExist;
 
 	}
-	
+
 	/**
 	 * 게시물을 삭제하는 메써드.
 	 */
 	public int remove(int boardNo) {
-		
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int count = 0;
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			String sql = "DELETE board WHERE boardno = ?";
-			
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, boardNo);
 			count = pstmt.executeUpdate();
@@ -267,6 +278,7 @@ public class BoardDao extends RdbmsDao {
 		return count;
 
 	}
+
 	/**
 	 * 게시물내용을 수정하는 메써드.
 	 */
@@ -275,9 +287,8 @@ public class BoardDao extends RdbmsDao {
 		PreparedStatement pstmt = null;
 		int count = 0;
 		try {
-			conn = getConnection();
-			String sql = "UPDATE board " + "SET title = ?, content = ? ,writer = ?"
-					+ "WHERE boardno = ?";
+			conn = dataSource.getConnection();
+			String sql = "UPDATE board " + "SET title = ?, content = ? ,writer = ?" + "WHERE boardno = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getContent());
@@ -301,6 +312,7 @@ public class BoardDao extends RdbmsDao {
 		}
 		return count;
 	}
+
 	/**
 	 * 게시물 번호에 해당하는 게시물 정보를 반환하는 메써드.
 	 */
@@ -312,7 +324,7 @@ public class BoardDao extends RdbmsDao {
 		Board board = null;
 
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			StringBuffer sql = new StringBuffer(300);
 			sql.append("SELECT ");
 			sql.append("boardno, title, writer, content, ");
@@ -350,7 +362,7 @@ public class BoardDao extends RdbmsDao {
 			}
 			try {
 				if (conn != null)
-					releaseConnection(conn);
+					conn.close();
 			} catch (Exception ex) {
 			}
 		}
@@ -366,9 +378,8 @@ public class BoardDao extends RdbmsDao {
 		PreparedStatement pstmt = null;
 
 		try {
-			conn = getConnection();
-			String sql = "UPDATE board " + "SET readcount = readcount + 1 "
-					+ "WHERE boardno = ?";
+			conn = dataSource.getConnection();
+			String sql = "UPDATE board " + "SET readcount = readcount + 1 " + "WHERE boardno = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, number);
 			pstmt.executeUpdate();
@@ -382,7 +393,7 @@ public class BoardDao extends RdbmsDao {
 			}
 			try {
 				if (conn != null)
-					releaseConnection(conn);
+					conn.close();
 			} catch (Exception ex) {
 			}
 		}
@@ -397,7 +408,7 @@ public class BoardDao extends RdbmsDao {
 		ResultSet rs = null;
 		int count = 0;
 		try {
-			conn = getConnection();
+			conn = dataSource.getConnection();
 			String sql = "SELECT COUNT(*) FROM board";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -420,14 +431,11 @@ public class BoardDao extends RdbmsDao {
 			}
 			try {
 				if (conn != null)
-					releaseConnection(conn);
+					conn.close();
 			} catch (Exception ex) {
 			}
 		}
 		return count;
 	}
 
-	
-
-	
 }

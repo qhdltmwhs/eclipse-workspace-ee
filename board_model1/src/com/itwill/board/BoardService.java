@@ -8,18 +8,13 @@ import com.itwill.util.BoardListPageDto;
 import com.itwill.util.PageCalculator;
 
 public class BoardService {
-	private static BoardService _instance;
+	
 	
 	private BoardDao boardDao;
-	private  BoardService() {
+	public  BoardService() throws Exception{
 		boardDao=new BoardDao();
 	}
-	public static BoardService getInstance() {
-		if(_instance==null) {
-			_instance=new BoardService();
-		}
-		return _instance;
-	}
+	
 	/*
 	 * 게시물삭제
 	 */
@@ -79,7 +74,7 @@ public class BoardService {
 	/*
 	 * 게시물생성
 	 */
-	public int create(Board board){
+	public int create(Board board) throws Exception{
 		return  boardDao.create(board);
 	}
 	/*

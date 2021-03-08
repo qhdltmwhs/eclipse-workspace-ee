@@ -9,7 +9,7 @@
 		return;
 	}
 	int boardno = Integer.parseInt(request.getParameter("boardno"));
-	Board board=BoardService.getInstance().findBoard(boardno);
+	Board board=new BoardService().findBoard(boardno);
 	if(board==null){
 		response.sendRedirect("board_list.jsp");
 		return;

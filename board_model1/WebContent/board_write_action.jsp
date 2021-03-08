@@ -13,6 +13,6 @@
 	board.setWriter(request.getParameter("writer"));
 	board.setContent(request.getParameter("content"));
 	
-	BoardService.getInstance().create(board);
+	new BoardService().create(board);
 	response.sendRedirect("board_list.jsp");
 %>

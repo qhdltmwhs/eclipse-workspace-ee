@@ -17,13 +17,13 @@
 		response.sendRedirect("board_list.jsp?pageno="+pageno);
 		return;
 	}
-	Board board=BoardService.getInstance().findBoard(boardno);
+	Board board=new BoardService().findBoard(boardno);
 	if(board==null){
 		response.sendRedirect("board_list.jsp?pageno="+pageno);
 		return;
 	}
 	//읽은회수증가
-	BoardService.getInstance().updateHitCount(boardno);
+	new BoardService().updateHitCount(boardno);
 	
 %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

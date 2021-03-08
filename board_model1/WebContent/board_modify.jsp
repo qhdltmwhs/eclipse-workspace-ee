@@ -14,7 +14,7 @@
 		response.sendRedirect("board_list.jsp");
 		return;
 	}
-	Board board = BoardService.getInstance().findBoard(boardno);
+	Board board =new BoardService().findBoard(boardno);
 	if (board == null) {
 		response.sendRedirect("board_list.jsp");
 		return;

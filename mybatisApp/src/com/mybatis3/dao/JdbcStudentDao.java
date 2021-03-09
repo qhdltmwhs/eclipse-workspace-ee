@@ -19,8 +19,8 @@ public class JdbcStudentDao
 	
 	private static final String DRIVER = "oracle.jdbc.OracleDriver";
 	private static final String URL = "jdbc:oracle:thin:@182.237.126.19:1521:xe";
-	private static final String USERNAME = "javapython70";
-	private static final String PASSWORD = "javapython70";
+	private static final String USERNAME = "javabackend99";
+	private static final String PASSWORD = "javabackend99";
 
 	
 	

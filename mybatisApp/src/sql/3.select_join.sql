@@ -1,8 +1,6 @@
 select dob from students;
 select name from students where stud_id=1;
 
-
-
 /*
 inner join
 */

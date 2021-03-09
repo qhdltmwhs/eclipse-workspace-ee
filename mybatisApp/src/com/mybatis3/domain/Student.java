@@ -6,7 +6,9 @@ import java.util.List;
 STUD_ID NOT NULL NUMBER(11)   
 NAME    NOT NULL VARCHAR2(50) 
 EMAIL   NOT NULL VARCHAR2(50) 
+PHONE            VARCHAR2(15) 
 DOB              DATE         
+ADDR_ID          NUMBER(11)         
   
 */
 

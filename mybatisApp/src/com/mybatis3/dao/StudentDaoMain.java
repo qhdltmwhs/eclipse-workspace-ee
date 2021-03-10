@@ -41,13 +41,25 @@ public class StudentDaoMain {
 		Student student2=new Student(null, "김시퀀스2", "seq2@gmail.com", new Date());
 		System.out.println(studentDao.insertStudentBySequence2(student2));
 		System.out.println("insert PK:"+student2.getStudId());
-		
-		System.out.println("---------updateStudent-------------------------------");
+		System.out.println("---------updateStudentById---------------------------");
+		System.out.println(studentDao.updateStudentById(new Student(7, "김변경", "change@naver.com", new Date()) ));
 		System.out.println("---------deleteStudentById---------------------------");
+		System.out.println(studentDao.deleteStudentById(19));
+		System.out.println("---------deleteStudentByName-------------------------");
+		System.out.println(studentDao.deleteStudentByName("김시퀀스1"));
+		System.out.println("---------deleteStudentByNameLike---------------------");
+		System.out.println(studentDao.deleteStudentByNameLike("시퀀스"));
 		System.out.println("---------findStudentByIdWithAddress------------------");
+		System.out.println(studentDao.findStudentByIdWithAddress(1));
 		System.out.println("---------findStudentByIdWithCourses------------------");
+		System.out.println(studentDao.findStudentByIdWithCourses(1));
+		System.out.println("---------findAllOrderedStudents------------------");
+		System.out.println(studentDao.findAllOrderedStudents("name desc"));
+		System.out.println(studentDao.findAllOrderedStudents("email asc"));
+		System.out.println(studentDao.findAllOrderedStudents("dob desc"));
 		
-	
+		
+		
 		System.out.println("---------updateStudentParamMap(parameter Map)--------");
 		System.out.println("---------findStudentByIdRangeParamMap(parameter Map)-");
 		System.out.println("---------findStudentsThreeParamMap(parameter Map)----");

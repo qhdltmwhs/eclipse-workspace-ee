@@ -11,8 +11,26 @@ import com.mybatis3.domain.Course;
 
 public class CourseDao 
 {
-	
-	
+	private SqlSessionFactory sqlSessionFactory;
+	public static final String NAMESPACE="com.mybatis3.dao.mapper.CourseMapper.";
+	public CourseDao() {
+		try {
+			InputStream mybatisConfigInputStream = 
+					Resources.getResourceAsStream("mybatis-config.xml");
+			SqlSessionFactoryBuilder sqlSessionFactoryBuilder=new SqlSessionFactoryBuilder();
+			this.sqlSessionFactory = 
+					sqlSessionFactoryBuilder.build(mybatisConfigInputStream);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public Course findCourseByIdWithStudents(Integer courseId) {
+		SqlSession sqlSession=sqlSessionFactory.openSession();
+		Course course = sqlSession.selectOne(NAMESPACE+"findCourseByIdWithStudents",courseId);
+		sqlSession.commit();
+		sqlSession.close();
+		return course;
+	}
 	
 }
 

@@ -4,10 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<properties resource="jdbc.properties"/>
-	<typeAliases>
-		<typeAlias alias="Student" type="com.mybatis3.domain.Student"/>
-		
-	</typeAliases>
 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
@@ -23,15 +19,15 @@
 			<dataSource type="POOLED">
 				<property name="driver" value="oracle.jdbc.driver.OracleDriver" />
 				<property name="url" value="jdbc:oracle:thin:@182.237.126.19:1521:XE" />
-				<property name="username" value="javabackend99" />
-				<property name="password" value="javabackend99" />
+				<property name="username" value="javapython70" />
+				<property name="password" value="javapython70" />
 			</dataSource>
 			-->
 		</environment>
 	</environments>
 	<mappers>
-		<mapper resource="com/mybatis3/dao/mapper/StudentMapper.xml"/>
-		<mapper resource="com/mybatis3/dao/mapper/CourseMapper.xml"/>
+		<mapper resource="com/itwill/guest/mapper/GuestMapper.xml"/>
+		
 	</mappers>
 </configuration>
 

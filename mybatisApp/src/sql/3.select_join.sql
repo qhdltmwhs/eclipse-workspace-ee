@@ -1,8 +1,8 @@
 select dob from students;
 select name from students where stud_id=1;
-
+select STUDENTS_STUD_ID_SEQ.currval from dual;
 /*
-inner join
+students + addresses[inner join]
 */
 select stud_id, name, email,phone, a.addr_id, street, city, state, zip, country
 FROM students s 
@@ -10,7 +10,7 @@ inner join addresses a
 on s.addr_id=a.addr_id;
 
 /*
-left outer join
+students + addresses [left outer join]
 */
 select stud_id, name, email,phone, a.addr_id, street, city, state, zip, country
 FROM students s 
@@ -18,7 +18,7 @@ left outer join addresses a
 on s.addr_id=a.addr_id;
      
 /*
-right outer join
+students + addresses [right outer join]
 */    
 select stud_id, name, email,phone, a.addr_id, street, city, state, zip, country
   		FROM students s 
@@ -26,7 +26,7 @@ select stud_id, name, email,phone, a.addr_id, street, city, state, zip, country
       on s.addr_id=a.addr_id;   
  
 /*
-full outer join
+students + addresses [full outer join]
 */    
 select stud_id, name, email,phone, a.addr_id, street, city, state, zip, country
   		FROM students s 
@@ -35,7 +35,7 @@ select stud_id, name, email,phone, a.addr_id, street, city, state, zip, country
 
 --findStudentByIdWithAddress--
 /*
-stdents + address join
+stdents + addresses join
 */
 select stud_id, name, email,phone, a.addr_id, street, city, state, zip, country
   		FROM students s 
@@ -43,30 +43,36 @@ select stud_id, name, email,phone, a.addr_id, street, city, state, zip, country
       on s.addr_id=a.addr_id
       where s.stud_id=1;
  
+--findStudentByIdWithCourses 
 /*
-courses + students join
+students + courses  join
 */     
-
-select c.*,s.* 
-		from courses c 
-		join course_enrollment ce
-		on c.course_id = ce.course_id
-		join students s
-		on ce.stud_id=s.stud_id where c.course_id=1;
-
-
-/*
-students + courses join
-*/
-
-
-select  s.stud_id,s.name as student_name ,s.email,s.phone,s.dob ,
-        c.course_id,c.name as course_name ,c.description,c.start_date,c.end_date
+select s.*,c.* 
 		from students s 
 		join course_enrollment ce
 		on s.stud_id = ce.stud_id
 		join courses c
 		on ce.course_id=c.course_id where s.stud_id=1;
+
+/*
+students + courses join
+*/
+select  s.stud_id,s.name as student_name ,s.email,s.phone,s.dob ,
+        c.course_id,c.name as course_name ,c.description,c.start_date,c.end_date
+		from students s 
+		left outer join course_enrollment ce
+		on s.stud_id = ce.stud_id
+		left outer join courses c
+		on ce.course_id=c.course_id where s.stud_id=1;
+       
+----findCourseByIdWithStudents 
+select c.*,s.* from courses c 
+join course_enrollment ce on c.course_id=ce.course_id
+join students s on ce.stud_id=s.stud_id
+where c.course_id=1;
+
+
+
        
 /*
 tutor + courses join

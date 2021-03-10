@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//src/sql/0.drop_tables.sql=UTF-8
+encoding//src/sql/1.create_tables.sql=UTF-8
+encoding//src/sql/2.insert_data.sql=UTF-8
+encoding//src/sql/3.select_join.sql=UTF-8

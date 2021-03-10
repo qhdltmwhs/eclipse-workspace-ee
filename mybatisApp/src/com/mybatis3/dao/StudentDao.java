@@ -26,6 +26,60 @@ public class StudentDao {
 			e.printStackTrace();
 		}
 	}
+	
+	/*@@@@@@@@@@@@@@@@@@@@@@@ SELECT JOIN[students + courses] @@@@@@@@@@@@@@@@@*/
+	public Student findStudentByIdWithCourses(Integer studId) {
+		SqlSession sqlSession=sqlSessionFactory.openSession(true);
+		Student findStudent=
+				sqlSession.selectOne(NAMESPACE+"findStudentByIdWithCourses",studId);
+		sqlSession.close();
+		return findStudent;
+	}
+	/*@@@@@@@@@@@@@@@@@@@@@@@ SELECT JOIN[students + addresses] @@@@@@@@@@@@@@@@@*/
+	public Student findStudentByIdWithAddress(Integer studId) {
+		SqlSession sqlSession=sqlSessionFactory.openSession(true);
+		Student findStudent=
+				sqlSession.selectOne(NAMESPACE+"findStudentByIdWithAddress",studId);
+		sqlSession.close();
+		return findStudent;
+	}
+	
+	
+	
+	
+	
+	
+	/*@@@@@@@@@@@@@@@@@@@@@@@ UPDATE @@@@@@@@@@@@@@@@@*/
+	public int updateStudentById(Student updateStudent) {
+		SqlSession sqlSession=sqlSessionFactory.openSession(false);
+		int row=sqlSession.insert(NAMESPACE+"updateStudentById", updateStudent);
+		sqlSession.commit();
+		sqlSession.close();
+		return row;
+	}
+	/*@@@@@@@@@@@@@@@@@@@@@@@DELETE@@@@@@@@@@@@@@@@@*/
+	public int deleteStudentById(Integer studId) {
+		SqlSession sqlSession=sqlSessionFactory.openSession(false);
+		int row=sqlSession.insert(NAMESPACE+"deleteStudentById", studId);
+		sqlSession.commit();
+		sqlSession.close();
+		return row;
+	}
+	public int deleteStudentByName(String name) {
+		SqlSession sqlSession=sqlSessionFactory.openSession(false);
+		int row=sqlSession.insert(NAMESPACE+"deleteStudentByName", name);
+		sqlSession.commit();
+		sqlSession.close();
+		return row;
+	}
+	public int deleteStudentByNameLike(String name) {
+		SqlSession sqlSession=sqlSessionFactory.openSession(false);
+		int row=sqlSession.insert(NAMESPACE+"deleteStudentByNameLike", name);
+		sqlSession.commit();
+		sqlSession.close();
+		return row;
+	}
+	
 	/*@@@@@@@@@@@@@@@@@@@@@@@INSERT@@@@@@@@@@@@@@@@@*/
 	public int insertStudent(Student student) {
 		SqlSession sqlSession=sqlSessionFactory.openSession(false);
@@ -84,6 +138,14 @@ public class StudentDao {
 		SqlSession sqlSession=sqlSessionFactory.openSession(false);
 		List<Student> studentList=
 				sqlSession.selectList(NAMESPACE+"findAllStudents");
+		sqlSession.commit();
+		sqlSession.close();
+		return studentList;
+	}
+	public List<Student> findAllOrderedStudents(String columnName) {
+		SqlSession sqlSession=sqlSessionFactory.openSession(false);
+		List<Student> studentList=
+				sqlSession.selectList(NAMESPACE+"findAllOrderedStudents",columnName);
 		sqlSession.commit();
 		sqlSession.close();
 		return studentList;

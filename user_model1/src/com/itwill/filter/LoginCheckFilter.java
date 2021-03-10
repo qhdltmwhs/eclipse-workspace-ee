@@ -17,7 +17,6 @@ public class LoginCheckFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req=(HttpServletRequest)request;
 		HttpServletResponse res=(HttpServletResponse)response;
-		
 		HttpSession session = req.getSession();
 		String sUserId=(String)session.getAttribute("sUserId");
 		if(sUserId==null) {
